@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: timko-farm
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: timko-farm-db
+          property: connectionString
+      - key: NODE_VERSION
+        value: 18.17.0
+
+databases:
+  - name: timko-farm-db
+    plan: free
+    databaseName: timko_farm
+    user: timko_user

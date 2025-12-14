@@ -1,0 +1,86 @@
+<!-- SVG Icons для сайту -->
+<svg style="display: none;">
+    <!-- Іконка теплиці -->
+    <symbol id="icon-greenhouse" viewBox="0 0 100 100">
+        <path d="M50 10 L90 40 L90 90 L10 90 L10 40 Z" fill="#4ade80" opacity="0.3"/>
+        <path d="M50 10 L90 40 L10 40 Z" fill="#16a34a"/>
+        <rect x="30" y="50" width="15" height="30" fill="#8b4513"/>
+        <rect x="55" y="50" width="15" height="30" fill="#8b4513"/>
+        <circle cx="37.5" cy="65" r="3" fill="#fbbf24"/>
+        <circle cx="62.5" cy="65" r="3" fill="#fbbf24"/>
+    </symbol>
+    
+    <!-- Іконка курки -->
+    <symbol id="icon-chicken" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="60" rx="25" ry="20" fill="#fb923c"/>
+        <circle cx="50" cy="40" r="15" fill="#fb923c"/>
+        <path d="M50 35 L45 25 L50 30 L55 25 Z" fill="#dc2626"/>
+        <circle cx="45" cy="38" r="2" fill="#000"/>
+        <circle cx="55" cy="38" r="2" fill="#000"/>
+        <path d="M48 42 L52 42 L50 45 Z" fill="#f59e0b"/>
+        <path d="M35 75 L40 85 M40 75 L45 85" stroke="#f97316" stroke-width="2"/>
+        <path d="M55 75 L60 85 M60 75 L65 85" stroke="#f97316" stroke-width="2"/>
+    </symbol>
+    
+    <!-- Іконка кози -->
+    <symbol id="icon-goat" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="60" rx="20" ry="15" fill="#a8a29e"/>
+        <circle cx="50" cy="35" r="12" fill="#a8a29e"/>
+        <path d="M42 25 L38 15 M58 25 L62 15" stroke="#78716c" stroke-width="3" fill="none"/>
+        <circle cx="45" cy="33" r="2" fill="#000"/>
+        <circle cx="55" cy="33" r="2" fill="#000"/>
+        <path d="M35 70 L35 85 M45 70 L45 85 M55 70 L55 85 M65 70 L65 85" stroke="#78716c" stroke-width="2"/>
+        <path d="M50 40 L48 45 L52 45 Z" fill="#fbbf24"/>
+    </symbol>
+    
+    <!-- Іконка овочів -->
+    <symbol id="icon-vegetables" viewBox="0 0 100 100">
+        <circle cx="35" cy="50" r="18" fill="#ef4444"/>
+        <path d="M35 32 Q38 28, 42 30" stroke="#16a34a" stroke-width="2" fill="none"/>
+        <circle cx="65" cy="55" r="15" fill="#16a34a"/>
+        <path d="M65 40 L65 35 Q68 32, 70 35" stroke="#15803d" stroke-width="2" fill="none"/>
+        <ellipse cx="50" cy="75" rx="12" ry="8" fill="#f97316"/>
+    </symbol>
+    
+    <!-- Іконка молока -->
+    <symbol id="icon-milk" viewBox="0 0 100 100">
+        <path d="M30 20 L70 20 L75 90 L25 90 Z" fill="#fff" stroke="#0891b2" stroke-width="3"/>
+        <rect x="30" y="20" width="40" height="15" fill="#0891b2"/>
+        <circle cx="50" cy="55" r="8" fill="#e0f2fe"/>
+        <circle cx="40" cy="70" r="5" fill="#e0f2fe"/>
+        <circle cx="60" cy="65" r="6" fill="#e0f2fe"/>
+    </symbol>
+    
+    <!-- Іконка листка -->
+    <symbol id="icon-leaf" viewBox="0 0 100 100">
+        <path d="M50 10 Q80 30, 85 60 Q85 80, 70 90 Q50 95, 50 95 Q50 95, 30 90 Q15 80, 15 60 Q20 30, 50 10 Z" fill="#4ade80"/>
+        <path d="M50 10 Q50 50, 50 95" stroke="#16a34a" stroke-width="2" fill="none"/>
+        <path d="M50 30 Q65 40, 70 55" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+        <path d="M50 30 Q35 40, 30 55" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+    </symbol>
+    
+    <!-- Іконка сонця -->
+    <symbol id="icon-sun" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="20" fill="#fbbf24"/>
+        <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round">
+            <line x1="50" y1="10" x2="50" y2="20"/>
+            <line x1="50" y1="80" x2="50" y2="90"/>
+            <line x1="10" y1="50" x2="20" y2="50"/>
+            <line x1="80" y1="50" x2="90" y2="50"/>
+            <line x1="20" y1="20" x2="27" y2="27"/>
+            <line x1="73" y1="73" x2="80" y2="80"/>
+            <line x1="80" y1="20" x2="73" y2="27"/>
+            <line x1="27" y1="73" x2="20" y2="80"/>
+        </g>
+    </symbol>
+    
+    <!-- Іконка серця -->
+    <symbol id="icon-heart" viewBox="0 0 100 100">
+        <path d="M50 85 Q20 60, 20 40 Q20 20, 35 20 Q50 20, 50 35 Q50 20, 65 20 Q80 20, 80 40 Q80 60, 50 85 Z" fill="#ef4444"/>
+    </symbol>
+    
+    <!-- Іконка зірки -->
+    <symbol id="icon-star" viewBox="0 0 100 100">
+        <path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z" fill="#fbbf24"/>
+    </symbol>
+</svg>

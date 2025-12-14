@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик - Органічна сімейна ферма ТІМКО</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        .cart-section {
+            padding-top: 150px;
+            min-height: 80vh;
+        }
+        .cart-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 0;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .item-info h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .item-price {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+        .btn-remove {
+            color: #ef4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .cart-total {
+            margin-top: 2rem;
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .checkout-form {
+            margin-top: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .empty-cart-message {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Навігація -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                     <div class="logo-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" />
+                            <path d="M30 60 Q35 40, 40 60 Q45 40, 50 60 Q55 40, 60 60 Q65 40, 70 60" stroke="#fff"
+                                stroke-width="3" fill="none" />
+                            <circle cx="35" cy="35" r="4" fill="#fff" />
+                            <circle cx="65" cy="35" r="4" fill="#fff" />
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <h1>ТІМКО</h1>
+                        <p>Органічна сімейна ферма</p>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Головна</a></li>
+                    <li><a href="index.html#products" class="nav-link">Продукція</a></li>
+                    <li><a href="#" class="nav-link active">Кошик (<span id="cartCount">0</span>)</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="cart-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ваш кошик</h2>
+            </div>
+            
+            <div class="cart-container" id="cartContainer">
+                <!-- Items will be populated here -->
+            </div>
+
+            <div id="checkoutSection" style="display: none;">
+                <div class="cart-total">
+                    Всього: <span id="totalPrice">0</span> грн
+                </div>
+
+                <form class="contact-form checkout-form" id="checkoutForm">
+                    <h3>Оформлення замовлення</h3>
+                    <div class="form-group">
+                        <input type="text" id="customerName" placeholder="Ваше ім'я" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="customerPhone" placeholder="Ваш телефон" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Підтвердити замовлення</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+             <div class="footer-bottom">
+                <p>&copy; 2024 Органічна сімейна ферма ТІМКО.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Inline script for cart specific logic, or can be moved to main script.js
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCartPage();
+            
+            const checkoutForm = document.getElementById('checkoutForm');
+            if (checkoutForm) {
+                checkoutForm.addEventListener('submit', handleCheckout);
+            }
+        });
+    </script>
+</body>
+</html>
