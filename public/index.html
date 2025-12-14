@@ -203,43 +203,9 @@
                 <h2 class="section-title">Блог</h2>
                 <p class="section-subtitle">Корисні статті про органічне господарство</p>
             </div>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <div class="blog-image"
-                        style="background: linear-gradient(135deg, rgba(74, 222, 128, 0.9), rgba(22, 163, 74, 0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%234ade80%22 width=%22100%22 height=%22100%22/></svg>');">
-                        <span class="blog-category">Теплиці</span>
-                    </div>
-                    <div class="blog-content">
-                        <h3>Органічне вирощування овочів у теплицях</h3>
-                        <p class="blog-excerpt">Основні принципи та рекомендації для успішного органічного вирощування
-                            овочів. Як обрати теплицю, підготувати ґрунт та забезпечити оптимальні умови...</p>
-                        <button class="btn-read-more" onclick="showArticle('greenhouse')">Читати далі →</button>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <div class="blog-image"
-                        style="background: linear-gradient(135deg, rgba(251, 146, 60, 0.9), rgba(249, 115, 22, 0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23fb923c%22 width=%22100%22 height=%22100%22/></svg>');">
-                        <span class="blog-category">Птахівництво</span>
-                    </div>
-                    <div class="blog-content">
-                        <h3>Вирощування органічної птиці</h3>
-                        <p class="blog-excerpt">Принципи органічного птахівництва: від вибору породи до створення
-                            комфортних умов утримання. Годівля, догляд та профілактика захворювань...</p>
-                        <button class="btn-read-more" onclick="showArticle('poultry')">Читати далі →</button>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <div class="blog-image"
-                        style="background: linear-gradient(135deg, rgba(96, 165, 250, 0.9), rgba(59, 130, 246, 0.9)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%2360a5fa%22 width=%22100%22 height=%22100%22/></svg>');">
-                        <span class="blog-category">Козівництво</span>
-                    </div>
-                    <div class="blog-content">
-                        <h3>Утримання кіз на органічній фермі</h3>
-                        <p class="blog-excerpt">Поради щодо утримання кіз: облаштування приміщення, годівля, випас та
-                            догляд. Вимоги до органічної сертифікації та виробництва якісного молока...</p>
-                        <button class="btn-read-more" onclick="showArticle('goats')">Читати далі →</button>
-                    </div>
-                </article>
+            <div class="blog-grid" id="blogGrid">
+                <!-- Articles will be loaded dynamically -->
+                <div style="text-align: center; width: 100%; grid-column: 1/-1;">Завантаження новин...</div>
             </div>
         </div>
     </section>

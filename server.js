@@ -196,7 +196,23 @@ async function initDb() {
 }
 
 
-// Get Products
+// Authentication Middleware
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.JWT_SECRET || 'secret_key', (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}
+
+// --- PUBLIC APIs ---
+
+// Get Products (Public)
 app.get('/api/products', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM products ORDER BY id ASC');
@@ -204,6 +220,123 @@ app.get('/api/products', async (req, res) => {
     } catch (err) {
         console.error('Error fetching products:', err);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Get Articles (Public)
+app.get('/api/articles', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM articles ORDER BY id ASC');
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching articles:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Get Advice (Public)
+app.get('/api/advice', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM advice ORDER BY id ASC');
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching advice:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// --- ADMIN PROTECTED APIs ---
+
+// Orders
+app.get('/api/orders', authenticateToken, async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM orders ORDER BY created_at DESC');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Manage Products
+app.post('/api/products', authenticateToken, async (req, res) => {
+    try {
+        const { code, name, description, price, unit, image_style } = req.body;
+        const result = await pool.query(
+            'INSERT INTO products (code, name, description, price, unit, image_style) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [code, name, description, price, unit, image_style]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.put('/api/products/:id', authenticateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { code, name, description, price, unit, image_style } = req.body;
+        const result = await pool.query(
+            'UPDATE products SET code=$1, name=$2, description=$3, price=$4, unit=$5, image_style=$6 WHERE id=$7 RETURNING *',
+            [code, name, description, price, unit, image_style, id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.delete('/api/products/:id', authenticateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM products WHERE id = $1', [id]);
+        res.json({ message: 'Deleted' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Manage Articles
+app.post('/api/articles', authenticateToken, async (req, res) => {
+    try {
+        const { slug, title, content, category, image_style } = req.body;
+        const result = await pool.query(
+            'INSERT INTO articles (slug, title, content, category, image_style) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [slug, title, content, category, image_style]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.put('/api/articles/:id', authenticateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { slug, title, content, category, image_style } = req.body;
+        const result = await pool.query(
+            'UPDATE articles SET slug=$1, title=$2, content=$3, category=$4, image_style=$5 WHERE id=$6 RETURNING *',
+            [slug, title, content, category, image_style, id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.delete('/api/articles/:id', authenticateToken, async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM articles WHERE id = $1', [id]);
+        res.json({ message: 'Deleted' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
     }
 });
 
