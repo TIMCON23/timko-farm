@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід в Адмін-панель - ТІМКО</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-logo {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .btn-full {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            color: #ef4444;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--primary-green);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+        <div class="login-logo">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+                <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" />
+                <path d="M30 60 Q35 40, 40 60 Q45 40, 50 60 Q55 40, 60 60 Q65 40, 70 60" stroke="#fff" stroke-width="3"
+                    fill="none" />
+                <circle cx="35" cy="35" r="4" fill="#fff" />
+                <circle cx="65" cy="35" r="4" fill="#fff" />
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1>ТІМКО</h1>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Логін</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Увійти</button>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+
+        <a href="index.html" class="back-link">← Повернутися на сайт</a>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('errorMessage');
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('adminToken', data.token);
+                    window.location.href = 'admin.html';
+                } else {
+                    errorElement.textContent = data.error || 'Помилка входу';
+                    errorElement.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                errorElement.textContent = 'Помилка з\'єднання з сервером';
+                errorElement.style.display = 'block';
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('adminToken')) {
+            // Optional: verify token validity with backend, but for now just redirect
+            // window.location.href = 'admin.html';
+        }
+    </script>
+</body>
+
+</html>
