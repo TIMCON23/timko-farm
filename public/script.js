@@ -114,7 +114,7 @@ let articlesData = {};
 async function fetchContent() {
     try {
         // Товари
-        const prodRes = await fetch('/api/products');
+        const prodRes = await fetch(`${window.API_BASE_URL}/api/products`);
         const products = await prodRes.json();
 
         const productsGrid = document.getElementById('productsGrid');
@@ -138,7 +138,7 @@ async function fetchContent() {
         }
 
         // Статті
-        const artRes = await fetch('/api/articles');
+        const artRes = await fetch(`${window.API_BASE_URL}/api/articles`);
         const articles = await artRes.json();
 
         const blogGrid = document.getElementById('blogGrid');
@@ -436,7 +436,7 @@ async function handleCheckout(e) {
     };
 
     try {
-        const response = await fetch('/api/orders', {
+        const response = await fetch(`${window.API_BASE_URL}/api/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -129,6 +129,7 @@
         <a href="index.html" class="back-link">← Повернутися на сайт</a>
     </div>
 
+    <script src="config.js"></script>
     <script>
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -137,7 +138,7 @@
             const errorElement = document.getElementById('errorMessage');
 
             try {
-                const response = await fetch('/api/login', {
+                const response = await fetch(`${window.API_BASE_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
