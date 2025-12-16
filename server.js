@@ -18,6 +18,16 @@ app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date() });
 });
 
+// DEBUG ENDPOINT - Remove after fixing
+const fs = require('fs');
+app.get('/debug-files', (req, res) => {
+    const publicPath = path.join(__dirname, 'public');
+    fs.readdir(publicPath, (err, files) => {
+        if (err) return res.status(500).json({ error: err.message, path: publicPath });
+        res.json({ files, path: publicPath });
+    });
+});
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
