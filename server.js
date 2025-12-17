@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors'); // Enable CORS
 const bodyParser = require('body-parser');
 const path = require('path');
 const { pool } = require('./db');
