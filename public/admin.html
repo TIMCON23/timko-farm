@@ -4,135 +4,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Адмін-панель - ТІМКО</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
-        rel="stylesheet">
+    <title>ТІМКО | Панель Керування</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #16a34a;
+            --primary-dark: #15803d;
+            --secondary: #3b82f6;
+            --bg-body: #f3f4f6;
+            --bg-sidebar: #1f2937;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
         body {
-            background: var(--bg-light);
-            padding-top: 0;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-body);
+            margin: 0;
             display: flex;
             min-height: 100vh;
+            color: var(--text-main);
         }
 
         /* Sidebar */
         .sidebar {
-            width: 250px;
-            background: #1f2937;
+            width: 260px;
+            background: var(--bg-sidebar);
             color: white;
-            padding: 2rem;
+            display: flex;
+            flex-direction: column;
             position: fixed;
             height: 100vh;
-            overflow-y: auto;
+            left: 0;
+            top: 0;
+            z-index: 50;
         }
 
-        .sidebar-logo {
-            font-weight: 900;
+        .sidebar-header {
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-icon {
             font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary-green-light);
+            color: var(--primary);
         }
 
-        .nav-items {
+        .brand-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
             list-style: none;
-            padding: 0;
+            padding: 1rem;
+            margin: 0;
+            flex: 1;
         }
 
         .nav-item {
-            padding: 10px 0;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            color: #9ca3af;
-            transition: 0.3s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #d1d5db;
         }
 
         .nav-item:hover,
         .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            padding-left: 10px;
         }
 
-        .nav-item.logout {
-            margin-top: auto;
+        .nav-item.active {
+            background: var(--primary);
+            font-weight: 500;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-logout {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.5);
             color: #ef4444;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: #ef4444;
+            color: white;
         }
 
         /* Main Content */
         .main-content {
-            margin-left: 250px;
+            margin-left: 260px;
+            flex: 1;
             padding: 2rem;
-            width: 100%;
+            max-width: 1400px;
         }
 
-        .header {
+        /* Header */
+        .page-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
         }
 
-        .title {
-            font-size: 2rem;
+        .page-title h1 {
+            margin: 0;
+            font-size: 1.75rem;
             font-weight: 700;
         }
 
-        /* Tables and Lists */
-        .data-table {
-            width: 100%;
-            background: white;
-            border-radius: 10px;
-            border-collapse: collapse;
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
+        .page-title p {
+            margin: 0.25rem 0 0;
+            color: var(--text-muted);
         }
 
-        .data-table th,
-        .data-table td {
-            padding: 1rem;
-            text-align: left;
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Cards & Tables */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+        }
+
+        thead {
+            background: #f9fafb;
             border-bottom: 1px solid #e5e7eb;
         }
 
-        .data-table th {
-            background: #f3f4f6;
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+        }
+
+        th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
             font-weight: 600;
         }
 
-        .action-btn {
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        td {
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-warning {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .status-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 6px;
+            border-radius: 6px;
             border: none;
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
-
-        .btn-edit {
-            background: var(--accent-blue);
-            color: white;
-        }
-
-        .btn-delete {
-            background: #ef4444;
-            color: white;
-        }
-
-        .btn-add {
-            background: var(--primary-green);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
+            color: #4b5563;
+            background: #f3f4f6;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: #e5e7eb;
+            color: var(--text-main);
+        }
+
+        .btn-icon.delete:hover {
+            background: #fee2e2;
+            color: #ef4444;
         }
 
         /* Sections */
         .section {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .section.active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Modal */
@@ -144,24 +296,112 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open {
+            display: flex;
         }
 
         .modal-content {
             background: white;
-            margin: 10% auto;
             padding: 2rem;
-            width: 500px;
-            border-radius: 10px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 20px;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            margin: 0;
             font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
             cursor: pointer;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            ring: 2px solid rgba(22, 163, 74, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: var(--text-main);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            padding: 4rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -169,88 +409,141 @@
 <body>
 
     <aside class="sidebar">
-        <div class="sidebar-logo">ТІМКО ADMIN</div>
-        <ul class="nav-items">
-            <li class="nav-item active" onclick="showSection('orders')">Замовлення</li>
-            <li class="nav-item" onclick="showSection('products')">Товари</li>
-            <li class="nav-item" onclick="showSection('articles')">Блог</li>
-            <li class="nav-item" onclick="showSection('advice')">Поради</li>
-            <li class="nav-item logout" onclick="logout()">Вихід</li>
+        <div class="sidebar-header">
+            <i class="fas fa-leaf logo-icon"></i>
+            <span class="brand-text">TIMKO FARM</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="showSection('orders')">
+                <i class="fas fa-shopping-basket"></i> Замовлення
+            </li>
+            <li class="nav-item" onclick="showSection('products')">
+                <i class="fas fa-carrot"></i> Товари
+            </li>
+            <li class="nav-item" onclick="showSection('articles')">
+                <i class="fas fa-newspaper"></i> Блог
+            </li>
+            <li class="nav-item" onclick="showSection('advice')">
+                <i class="fas fa-lightbulb"></i> Поради
+            </li>
         </ul>
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Вийти
+            </button>
+        </div>
     </aside>
 
     <main class="main-content">
         <!-- Orders Section -->
         <div id="orders" class="section active">
-            <div class="header">
-                <h1 class="title">Отримані замовлення</h1>
-                <button class="btn-add" onclick="fetchOrders()">Оновити</button>
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Замовлення</h1>
+                    <p>Перегляд та управління замовленнями клієнтів</p>
+                </div>
+                <button class="btn-primary" onclick="fetchOrders()">
+                    <i class="fas fa-sync-alt"></i> Оновити
+                </button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Клієнт</th>
-                        <th>Телефон</th>
-                        <th>Сума</th>
-                        <th>Дата</th>
-                        <th>Деталі</th>
-                    </tr>
-                </thead>
-                <tbody id="ordersTableBody">
-                    <!-- Orders Populated Here -->
-                </tbody>
-            </table>
+
+            <div class="card">
+                <div class="table-container">
+                    <table id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Клієнт</th>
+                                <th>Контакти</th>
+                                <th>Сума</th>
+                                <th>Склад замовлення</th>
+                                <th>Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Products Section -->
         <div id="products" class="section">
-            <div class="header">
-                <h1 class="title">Управління товарами</h1>
-                <button class="btn-add" onclick="openProductModal()">+ Додати товар</button>
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Товари</h1>
+                    <p>Керування асортиментом магазину</p>
+                </div>
+                <button class="btn-primary" onclick="openProductModal()">
+                    <i class="fas fa-plus"></i> Додати товар
+                </button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Назва</th>
-                        <th>Ціна</th>
-                        <th>Код</th>
-                        <th>Дії</th>
-                    </tr>
-                </thead>
-                <tbody id="productsTableBody">
-                    <!-- Products Populated Here -->
-                </tbody>
-            </table>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Назва</th>
+                                <th>Код</th>
+                                <th>Ціна</th>
+                                <th>Одиниця</th>
+                                <th>Дії</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Articles Section -->
         <div id="articles" class="section">
-            <div class="header">
-                <h1 class="title">Управління блогом</h1>
-                <button class="btn-add" onclick="openArticleModal()">+ Додати статтю</button>
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Блог</h1>
+                    <p>Публікація новин та статей</p>
+                </div>
+                <button class="btn-primary" onclick="openArticleModal()">
+                    <i class="fas fa-plus"></i> Додати статтю
+                </button>
             </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Заголовок</th>
-                        <th>Категорія</th>
-                        <th>Дії</th>
-                    </tr>
-                </thead>
-                <tbody id="articlesTableBody">
-                    <!-- Articles Populated Here -->
-                </tbody>
-            </table>
+
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Заголовок</th>
+                                <th>Slug</th>
+                                <th>Категорія</th>
+                                <th>Дії</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articlesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Advice Section -->
         <div id="advice" class="section">
-            <div class="header">
-                <h1 class="title">Управління порадами</h1>
-                <p>Розділ в розробці...</p>
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Поради</h1>
+                    <p>Корисна інформація для клієнтів</p>
+                </div>
+                <button class="btn-primary">
+                    <i class="fas fa-plus"></i> Додати пораду
+                </button>
+            </div>
+            <div class="card">
+                <div class="empty-state">
+                    <i class="fas fa-tools" style="font-size: 3rem; color: #d1d5db; margin-bottom: 1rem;"></i>
+                    <h3>Розділ в розробці</h3>
+                    <p>Функціонал для цього розділу буде доступний незабаром.</p>
+                </div>
             </div>
         </div>
     </main>
@@ -258,17 +551,42 @@
     <!-- Product Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('productModal')">&times;</span>
-            <h2 id="productModalTitle">Додати/Редагувати товар</h2>
-            <form id="productForm" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Товар</h2>
+                <button class="close-btn" onclick="closeModal('productModal')">&times;</button>
+            </div>
+            <form id="productForm" class="form-grid">
                 <input type="hidden" id="prodId">
-                <input type="text" id="prodName" placeholder="Назва товару" required>
-                <input type="text" id="prodCode" placeholder="Код (slug)" required>
-                <input type="number" id="prodPrice" placeholder="Ціна" required>
-                <input type="text" id="prodUnit" placeholder="Одиниця (кг, л, дес)" required>
-                <textarea id="prodDesc" placeholder="Опис" rows="3"></textarea>
-                <input type="text" id="prodImage" placeholder="CSS стилі для картинки (background: ...)">
-                <button type="submit" class="btn-add">Зберегти</button>
+                <div class="form-group">
+                    <label>Назва товару</label>
+                    <input type="text" id="prodName" class="form-control" required>
+                </div>
+                <div class="form-group" style="grid-template-columns: 1fr 1fr; display: grid; gap: 1rem;">
+                    <div>
+                        <label>Код (URL)</label>
+                        <input type="text" id="prodCode" class="form-control" required>
+                    </div>
+                    <div>
+                        <label>Ціна (грн)</label>
+                        <input type="number" id="prodPrice" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Одиниця виміру (кг, шт, л)</label>
+                    <input type="text" id="prodUnit" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Опис</label>
+                    <textarea id="prodDesc" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Стиль зображення (CSS background)</label>
+                    <input type="text" id="prodImage" class="form-control" placeholder="linear-gradient(...)">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('productModal')">Скасувати</button>
+                    <button type="submit" class="btn-primary">Зберегти</button>
+                </div>
             </form>
         </div>
     </div>
@@ -276,16 +594,36 @@
     <!-- Article Modal -->
     <div id="articleModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('articleModal')">&times;</span>
-            <h2 id="articleModalTitle">Додати/Редагувати статтю</h2>
-            <form id="articleForm" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <div class="modal-header">
+                <h2 id="articleModalTitle">Стаття</h2>
+                <button class="close-btn" onclick="closeModal('articleModal')">&times;</button>
+            </div>
+            <form id="articleForm" class="form-grid">
                 <input type="hidden" id="artId">
-                <input type="text" id="artTitle" placeholder="Заголовок" required>
-                <input type="text" id="artSlug" placeholder="Slug (URL)" required>
-                <input type="text" id="artCategory" placeholder="Категорія" required>
-                <textarea id="artContent" placeholder="HTML контент" rows="5" required></textarea>
-                <input type="text" id="artImage" placeholder="CSS стилі для картинки">
-                <button type="submit" class="btn-add">Зберегти</button>
+                <div class="form-group">
+                    <label>Заголовок</label>
+                    <input type="text" id="artTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>URL Slug</label>
+                    <input type="text" id="artSlug" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Категорія</label>
+                    <input type="text" id="artCategory" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Вміст (HTML)</label>
+                    <textarea id="artContent" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Стиль зображення</label>
+                    <input type="text" id="artImage" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('articleModal')">Скасувати</button>
+                    <button type="submit" class="btn-primary">Зберегти</button>
+                </div>
             </form>
         </div>
     </div>
@@ -295,6 +633,7 @@
         const API_URL = `${window.API_BASE_URL}/api`;
         const token = localStorage.getItem('adminToken');
 
+        // Initial Auth Check
         if (!token) window.location.href = 'admin-login.html';
 
         const headers = {
@@ -302,16 +641,26 @@
             'Authorization': `Bearer ${token}`
         };
 
-        // Navigation
+        // UI Helpers
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            event.target.classList.add('active');
+            // Find the nav item that triggered this
+            const navItems = document.querySelectorAll('.nav-item');
+            if (id === 'orders') navItems[0].classList.add('active');
+            if (id === 'products') navItems[1].classList.add('active');
+            if (id === 'articles') navItems[2].classList.add('active');
+            if (id === 'advice') navItems[3].classList.add('active');
 
             if (id === 'orders') fetchOrders();
             if (id === 'products') fetchProducts();
             if (id === 'articles') fetchArticles();
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
         }
 
         function logout() {
@@ -319,54 +668,113 @@
             window.location.href = 'admin-login.html';
         }
 
-        // --- ORDERS ---
+        // --- Data Fetching ---
+
+        // ORDERS
         async function fetchOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '<tr><td colspan="6" class="loading">Завантаження...</td></tr>';
+
             try {
                 const res = await fetch(`${API_URL}/orders`, { headers });
-                if (!res.ok) throw new Error('Failed');
+                if (res.status === 401 || res.status === 403) return logout();
                 const orders = await res.json();
 
-                const tbody = document.getElementById('ordersTableBody');
+                if (orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Немає замовлень</td></tr>';
+                    return;
+                }
+
                 tbody.innerHTML = orders.map(o => `
                     <tr>
-                        <td>${o.id}</td>
-                        <td>${o.customer_name}</td>
+                        <td>#${o.id}</td>
+                        <td><strong>${o.customer_name}</strong></td>
                         <td>${o.customer_phone}</td>
-                        <td>${o.total_price} грн</td>
-                        <td>${new Date(o.created_at).toLocaleString()}</td>
-                        <td><small>${JSON.stringify(o.items).substring(0, 50)}...</small></td>
+                        <td><span class="status-badge status-success">${o.total_price} грн</span></td>
+                        <td><small>${formatItems(o.items)}</small></td>
+                        <td>${new Date(o.created_at).toLocaleDateString()}</td>
                     </tr>
                 `).join('');
             } catch (err) {
                 console.error(err);
-                if (confirm('Сесія закінчилась. Увійти знову?')) logout();
+                tbody.innerHTML = '<tr><td colspan="6" style="color:red;text-align:center">Помилка завантаження</td></tr>';
             }
         }
 
-        // --- PRODUCTS ---
-        async function fetchProducts() {
-            const res = await fetch(`${API_URL}/products`, { headers }); // Public, but we iterate for table
-            const products = await res.json();
-
-            const tbody = document.getElementById('productsTableBody');
-            tbody.innerHTML = products.map(p => `
-                <tr>
-                    <td>${p.id}</td>
-                    <td>${p.name}</td>
-                    <td>${p.price} грн / ${p.unit}</td>
-                    <td>${p.code}</td>
-                    <td>
-                        <button class="action-btn btn-edit" onclick='editProduct(${JSON.stringify(p)})'>Edit</button>
-                        <button class="action-btn btn-delete" onclick="deleteProduct(${p.id})">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
+        function formatItems(itemsJson) {
+            try {
+                // If it's already an object (JSONB), usage is direct. If string, parse.
+                const items = typeof itemsJson === 'string' ? JSON.parse(itemsJson) : itemsJson;
+                if (!Array.isArray(items)) return 'Invalid items';
+                return items.map(i => `${i.name} (${i.quantity})`).join(', ');
+            } catch (e) { return '...'; }
         }
 
+        // PRODUCTS
+        async function fetchProducts() {
+            const tbody = document.getElementById('productsTableBody');
+            tbody.innerHTML = '<tr><td colspan="6" class="loading">Завантаження...</td></tr>';
+
+            try {
+                const res = await fetch(`${API_URL}/products`); // Public read
+                const products = await res.json();
+
+                tbody.innerHTML = products.map(p => `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td><strong>${p.name}</strong></td>
+                        <td>${p.code}</td>
+                        <td>${p.price} грн</td>
+                        <td>${p.unit}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-icon" onclick='editProduct(${JSON.stringify(p)})'><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // ARTICLES
+        async function fetchArticles() {
+            const tbody = document.getElementById('articlesTableBody');
+            tbody.innerHTML = '<tr><td colspan="5" class="loading">Завантаження...</td></tr>';
+
+            try {
+                const res = await fetch(`${API_URL}/articles`);
+                const articles = await res.json();
+
+                tbody.innerHTML = articles.map(a => `
+                    <tr>
+                        <td>${a.id}</td>
+                        <td><strong>${a.title}</strong></td>
+                        <td>${a.slug}</td>
+                        <td><span class="status-badge status-info">${a.category}</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-icon" onclick='editArticle(${JSON.stringify(a)})'><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon delete" onclick="deleteArticle(${a.id})"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // --- Modals & CRUD ---
+
+        // Product
         function openProductModal() {
             document.getElementById('productForm').reset();
             document.getElementById('prodId').value = '';
-            document.getElementById('productModal').style.display = 'block';
+            document.getElementById('productModalTitle').innerText = 'Додати товар';
+            document.getElementById('productModal').classList.add('open');
         }
 
         function editProduct(p) {
@@ -377,13 +785,8 @@
             document.getElementById('prodUnit').value = p.unit;
             document.getElementById('prodDesc').value = p.description;
             document.getElementById('prodImage').value = p.image_style;
-            document.getElementById('productModal').style.display = 'block';
-        }
-
-        async function deleteProduct(id) {
-            if (!confirm('Видалити цей товар?')) return;
-            await fetch(`${API_URL}/products/${id}`, { method: 'DELETE', headers });
-            fetchProducts();
+            document.getElementById('productModalTitle').innerText = 'Редагувати товар';
+            document.getElementById('productModal').classList.add('open');
         }
 
         document.getElementById('productForm').addEventListener('submit', async (e) => {
@@ -397,7 +800,6 @@
                 description: document.getElementById('prodDesc').value,
                 image_style: document.getElementById('prodImage').value
             };
-
             const method = id ? 'PUT' : 'POST';
             const url = id ? `${API_URL}/products/${id}` : `${API_URL}/products`;
 
@@ -406,29 +808,18 @@
             fetchProducts();
         });
 
-        // --- ARTICLES ---
-        async function fetchArticles() {
-            const res = await fetch(`${API_URL}/articles`, { headers });
-            const articles = await res.json();
-
-            const tbody = document.getElementById('articlesTableBody');
-            tbody.innerHTML = articles.map(a => `
-                <tr>
-                    <td>${a.id}</td>
-                    <td>${a.title}</td>
-                    <td>${a.category}</td>
-                    <td>
-                        <button class="action-btn btn-edit" onclick='editArticle(${JSON.stringify(a)})'>Edit</button>
-                        <button class="action-btn btn-delete" onclick="deleteArticle(${a.id})">Delete</button>
-                    </td>
-                </tr>
-            `).join('');
+        async function deleteProduct(id) {
+            if (!confirm('Видалити цей товар?')) return;
+            await fetch(`${API_URL}/products/${id}`, { method: 'DELETE', headers });
+            fetchProducts();
         }
 
+        // Article
         function openArticleModal() {
             document.getElementById('articleForm').reset();
             document.getElementById('artId').value = '';
-            document.getElementById('articleModal').style.display = 'block';
+            document.getElementById('articleModalTitle').innerText = 'Додати статтю';
+            document.getElementById('articleModal').classList.add('open');
         }
 
         function editArticle(a) {
@@ -438,13 +829,8 @@
             document.getElementById('artCategory').value = a.category;
             document.getElementById('artContent').value = a.content;
             document.getElementById('artImage').value = a.image_style;
-            document.getElementById('articleModal').style.display = 'block';
-        }
-
-        async function deleteArticle(id) {
-            if (!confirm('Видалити цю статтю?')) return;
-            await fetch(`${API_URL}/articles/${id}`, { method: 'DELETE', headers });
-            fetchArticles();
+            document.getElementById('articleModalTitle').innerText = 'Редагувати статтю';
+            document.getElementById('articleModal').classList.add('open');
         }
 
         document.getElementById('articleForm').addEventListener('submit', async (e) => {
@@ -457,7 +843,6 @@
                 content: document.getElementById('artContent').value,
                 image_style: document.getElementById('artImage').value
             };
-
             const method = id ? 'PUT' : 'POST';
             const url = id ? `${API_URL}/articles/${id}` : `${API_URL}/articles`;
 
@@ -466,8 +851,11 @@
             fetchArticles();
         });
 
-        // Utils
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        async function deleteArticle(id) {
+            if (!confirm('Видалити статтю?')) return;
+            await fetch(`${API_URL}/articles/${id}`, { method: 'DELETE', headers });
+            fetchArticles();
+        }
 
         // Init
         fetchOrders();

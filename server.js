@@ -13,6 +13,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Redirect /admin to /admin.html
+app.get('/admin', (req, res) => {
+    res.redirect('/admin.html');
+});
+
+// Redirect /login to /admin-login.html
+app.get('/login', (req, res) => {
+    res.redirect('/admin-login.html');
+});
+
 // Health check
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date() });

@@ -4,141 +4,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вхід в Адмін-панель - ТІМКО</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Вхід | ТІМКО Admin</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
+        :root {
+            --primary: #16a34a;
+            --primary-dark: #15803d;
+            --accent: #facc15;
+            --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 20px 40px -5px rgba(22, 163, 74, 0.15);
+        }
+
         body {
-            background-color: var(--bg-light);
+            background: var(--bg-gradient);
+            font-family: 'Outfit', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative background elements */
+        .blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(to right, #4ade80, #22c55e);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            top: -100px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            bottom: -100px;
+            left: -100px;
         }
 
         .login-card {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-xl);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .login-header {
             text-align: center;
+            margin-bottom: 2.5rem;
         }
 
         .login-logo {
-            margin-bottom: 2rem;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+            border-radius: 16px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 20px -5px rgba(22, 163, 74, 0.3);
+            color: white;
+            font-size: 32px;
         }
 
-        .login-logo h1 {
+        .login-header h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
-            color: var(--primary-green);
+            color: #1f2937;
+            margin: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin: 0;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
-            text-align: left;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 600;
+            color: #374151;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
 
-        .form-group input {
+        .form-input {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            border: 2px solid #f3f4f6;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: #f9fafb;
+            box-sizing: border-box;
         }
 
-        .form-group input:focus {
+        .form-input:focus {
             outline: none;
-            border-color: var(--primary-green);
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.1);
         }
 
-        .btn-full {
+        .btn-submit {
             width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
             margin-top: 1rem;
         }
 
-        .error-message {
-            color: #ef4444;
-            margin-top: 1rem;
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            text-align: center;
             display: none;
+        }
+
+        .message.error {
+            background: #fef2f2;
+            color: #ef4444;
+            border: 1px solid #fecaca;
         }
 
         .back-link {
             display: block;
-            margin-top: 1.5rem;
-            color: var(--text-light);
+            text-align: center;
+            margin-top: 2rem;
+            color: #6b7280;
             text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
 
         .back-link:hover {
-            color: var(--primary-green);
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 2rem;
+                margin: 1rem;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
     <div class="login-card">
-        <div class="login-logo">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="50" height="50">
-                <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" />
-                <path d="M30 60 Q35 40, 40 60 Q45 40, 50 60 Q55 40, 60 60 Q65 40, 70 60" stroke="#fff" stroke-width="3"
-                    fill="none" />
-                <circle cx="35" cy="35" r="4" fill="#fff" />
-                <circle cx="65" cy="35" r="4" fill="#fff" />
-                <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <h1>ТІМКО</h1>
+        <div class="login-header">
+            <div class="login-logo">
+                <i class="fas fa-leaf">🌿</i>
+            </div>
+            <h1>Адмін-панель</h1>
+            <p>Введіть дані для доступу</p>
         </div>
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="username">Логін</label>
-                <input type="text" id="username" required>
+                <label class="form-label" for="username">Логін</label>
+                <input type="text" id="username" class="form-input" placeholder="admin" required>
             </div>
             <div class="form-group">
-                <label for="password">Пароль</label>
-                <input type="password" id="password" required>
+                <label class="form-label" for="password">Пароль</label>
+                <input type="password" id="password" class="form-input" placeholder="••••••••" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-full">Увійти</button>
-            <p id="errorMessage" class="error-message"></p>
+            <button type="submit" class="btn-submit">Увійти в систему</button>
+            <div id="message" class="message"></div>
         </form>
 
-        <a href="index.html" class="back-link">← Повернутися на сайт</a>
+        <a href="/" class="back-link">
+            ← Повернутися на головну
+        </a>
     </div>
 
     <script src="config.js"></script>
     <script>
+        // Check stored token
+        if (localStorage.getItem('adminToken')) {
+            // Optional: Validate token here if needed
+            window.location.href = '/admin.html';
+        }
+
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Перевірка...';
+            btn.disabled = true;
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const errorElement = document.getElementById('errorMessage');
+            const msg = document.getElementById('message');
 
             try {
-                const response = await fetch(`${window.API_BASE_URL}/api/login`, {
+                // Use config.js base URL
+                const apiUrl = window.API_BASE_URL || '';
+                // Fallback to relative path if API_BASE_URL is not set or matches current origin, 
+                // but usually config.js handles it.
+
+                const response = await fetch(`${apiUrl}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
@@ -150,21 +262,21 @@
                     localStorage.setItem('adminToken', data.token);
                     window.location.href = 'admin.html';
                 } else {
-                    errorElement.textContent = data.error || 'Помилка входу';
-                    errorElement.style.display = 'block';
+                    msg.textContent = data.error || 'Помилка входу';
+                    msg.className = 'message error';
+                    msg.style.display = 'block';
+                    btn.innerText = originalText;
+                    btn.disabled = false;
                 }
             } catch (err) {
                 console.error(err);
-                errorElement.textContent = 'Помилка з\'єднання з сервером';
-                errorElement.style.display = 'block';
+                msg.textContent = 'Помилка з\'єднання. Перевірте інтернет.';
+                msg.className = 'message error';
+                msg.style.display = 'block';
+                btn.innerText = originalText;
+                btn.disabled = false;
             }
         });
-
-        // Check if already logged in
-        if (localStorage.getItem('adminToken')) {
-            // Optional: verify token validity with backend, but for now just redirect
-            // window.location.href = 'admin.html';
-        }
     </script>
 </body>
 
