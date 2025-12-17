@@ -98,11 +98,67 @@ app.get('/api/orders', authenticateToken, async (req, res) => {
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// Видалення товару (приклад)
+// Видалення товару
 app.delete('/api/products/:id', authenticateToken, async (req, res) => {
     try {
         await pool.query('DELETE FROM products WHERE id = $1', [req.params.id]);
         res.json({ message: 'Товар видалено' });
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Додавання товару
+app.post('/api/products', authenticateToken, async (req, res) => {
+    try {
+        const { code, name, description, price, unit, image_style } = req.body;
+        const result = await pool.query(
+            'INSERT INTO products (code, name, description, price, unit, image_style) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [code, name, description, price, unit, image_style]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Редагування товару
+app.put('/api/products/:id', authenticateToken, async (req, res) => {
+    try {
+        const { code, name, description, price, unit, image_style } = req.body;
+        const result = await pool.query(
+            'UPDATE products SET code=$1, name=$2, description=$3, price=$4, unit=$5, image_style=$6 WHERE id=$7 RETURNING *',
+            [code, name, description, price, unit, image_style, req.params.id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Додавання статті
+app.post('/api/articles', authenticateToken, async (req, res) => {
+    try {
+        const { slug, title, content, category, image_style } = req.body;
+        const result = await pool.query(
+            'INSERT INTO articles (slug, title, content, category, image_style) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [slug, title, content, category, image_style]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Редагування статті
+app.put('/api/articles/:id', authenticateToken, async (req, res) => {
+    try {
+        const { slug, title, content, category, image_style } = req.body;
+        const result = await pool.query(
+            'UPDATE articles SET slug=$1, title=$2, content=$3, category=$4, image_style=$5 WHERE id=$6 RETURNING *',
+            [slug, title, content, category, image_style, req.params.id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Видалення статті
+app.delete('/api/articles/:id', authenticateToken, async (req, res) => {
+    try {
+        await pool.query('DELETE FROM articles WHERE id = $1', [req.params.id]);
+        res.json({ message: 'Статтю видалено' });
     } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
